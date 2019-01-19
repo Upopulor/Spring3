@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd 
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 1创建目标类 -->
+	<bean id="UserServiceId" class="aop.wyc.halfAuto_factoryBean16.UserServiceImpl"></bean>
+	<!-- 2 创建切面类 -->
+	<bean id="MyAspectId" class="aop.wyc.halfAuto_factoryBean16.MyAspect"></bean>
+	<!-- 3 创建代理类 
+		*使用Factorybean 底册调用getObject()返回特殊bean	
+		*ProxyFactoryBean是Factorybean的具体实现类，用于创建代理工厂bean，生成特殊代理对象
+			interfaces:确定接口们
+				通过<array>可以设置多个值，只有一个值时 value=""
+			target:确定目标类
+			interceptorNames:通知切面类的名称，是字符串,不是ref,如果一个值value=""否则用数组
+			optimize:强制使用cglib <property name="optimize" value="true"></property>
+		*底层机制
+			如果目标类有接口，采用jdk动态代理
+			如果没有接口，采用cglib字节码增强
+			如果声明optimize，强制使用cglib
+	-->
+	<bean id="UserServiceProxyId" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interfaces" value="aop.wyc.halfAuto_factoryBean16.UserService"></property>
+		<property name="target" ref="UserServiceId"></property>
+		<property name="interceptorNames" value="MyAspectId"></property>
+		<property name="optimize" value="true"></property>
+	</bean>
+</beans>
+  

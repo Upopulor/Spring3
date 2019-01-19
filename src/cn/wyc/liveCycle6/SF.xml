@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- init-method：配置初始化方法 准备数据
+		 destroy-method：配置销毁方法  清理资源
+	 -->
+	<bean id="userServiceId" class="cn.wyc.liveCycle6.UserServiceImpl" 
+	      init-method="myInit" destroy-method="myDestory"></bean>
+
+	 <!-- 将后处理的实现类注册给Spring -->
+	 <bean class="cn.wyc.liveCycle6.MyBeanPostProcess"></bean>
+</beans>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd 
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop 
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 1创建目标类 -->
+	<bean id="UserServiceId" class="aop.wyc.adpect_xml18.UserServiceImpl"></bean>
+	<!-- 2 创建切面类 -->
+	<bean id="MyAspectId" class="aop.wyc.adpect_xml18.MyAspect"></bean>
+	<!-- 3 Aop编程 
+			<aop:aspect> 将切面类声明“切面”，从而获得通知（方法）
+			<aop:pointcut> 声明一个切入点，所以得通知都可以使用
+				expression：切入点表达式
+				id：名称，用于其他通知引用
+	-->
+	<aop:config>
+		<aop:aspect ref="MyAspectId">
+			<aop:pointcut expression="execution(* aop.wyc.adpect_xml18.UserServiceImpl.*(..))" id="myPointCut"/>
+			<!-- 3.1 前置通知 
+					<aop:before method="myBefore" pointcut-ref=""/>	
+					method:通知，及方法名
+					pointcut：切入点表达式，此表达式只能当前的通知使用
+					pointcut-ref:切入点引用，可以与其他通知共享切入点
+				通知方法格式：public void myBefore(JoinPoint joinPoint)
+					参数1 org.aspectj.lang.JoinPoint 用于描述我们的连接点（目标方法），获得当前目标方法的方法名等
+			-->
+			<aop:before method="myBefore" pointcut-ref="myPointCut"/>
+			<!-- 3.2后置通知  目标方法后执行，可以获得方法返回值
+						returning:通知方法第二个参数的名称
+					通知方法格式：public void myAfter(JoinPoint joinPoint,Object ret) 
+						参数1：连接点描述
+						参数2：类型Object，参数名 returning确定的returning="ret"
+			-->
+			<aop:after-returning method="myAfter" pointcut-ref="myPointCut" returning="ret"/>
+			<!-- 3.3 环绕通知 
+				<aop:around method="myAround" pointcut-ref="myPointCut"/>
+				通知方法格式：public Object myAround(ProceedingJoinPoint joinPoint) throws Throwable
+					返回值：必须是Object
+					方法名：任意
+					参数：ProceedingJoinPoint
+					必须抛异常：throws Throwable
+				执行目标方法 Object proceed = joinPoint.proceed();
+			-->
+			<aop:around method="myAround" pointcut-ref="myPointCut"/>
+			<!-- 3.4抛出异常
+					throwing:确定通知方法的第二个参数的名称
+					通知方法的格式：public void myAfterThrowing(JoinPoint joinPoint,Throwable e) 
+						参数1：连接点描述对象
+						参数2：获得异常信息，类型Throwable，参数名由throwing设置throwing="e"
+			 -->
+			 <aop:after-throwing method="myAfterThrowing" pointcut-ref="myPointCut" throwing="e"/>
+			<!-- 3.5 最终通知 -->
+			 <aop:after method="After" pointcut-ref="myPointCut"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

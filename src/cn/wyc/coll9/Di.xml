@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	 <!-- 
+	 	集合的注入都是给<property>添加子标签
+	 	  	  数组：<array>
+	 		 List：<list>
+	 		 Set：<set>
+	 	 	 Map:<map>  存放的就是键值对 使用entry描述
+	 		 Properties:<props>
+	 	普通数据：<value>
+	 	引用数据：<ref>
+	  -->
+	 <bean id="collId" class="cn.wyc.coll9.CollDate">
+	 	<property name="arrayData">
+	 		<array>
+	 			<value>AS</value>
+	 			<value>QS</value>
+	 			<value>DE</value>
+	 		</array>
+	 	</property>
+	 	<property name="listData">
+	 		<list>
+	 			<value>卡兹克</value>
+	 			<value>乌迪尔</value>
+	 			<value>卡利斯塔</value>
+	 		</list>
+	 	</property>
+	 	<property name="setData">
+	 		<set>
+	 			<value>邓紫棋</value>
+	 			<value>希维尔</value>
+	 			<value>阿紫而</value>
+	 		</set>
+	 	</property>
+	 	<property name="mapData">
+	 		<map>
+	 			<entry key="1002" value="上单"></entry>
+	 			<entry >
+	 				<key><value>1003</value></key>
+	 				<value>中单</value>
+	 			</entry>
+	 		</map>
+	 	</property>
+	 	<property name="properties">
+	 		<props>
+	 			<prop key="ad">奥巴马</prop>
+	 			<prop key="辅助">压缩</prop>
+	 			<prop key="上单">菲奥娜</prop>
+	 		</props>
+	 	</property>
+	 </bean>
+</beans>

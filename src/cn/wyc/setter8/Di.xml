@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	 <!-- setter方法注入
+	 		*普通数据
+	 			<property name="" value="">
+	 			等效
+	 			<property name="">
+	 				<value>值
+	 		*引用数据
+	 			<property name="homeAddr" ref="另一个bean"></property>
+	 			等效
+	 			<property name="comAddr">
+	 				<ref bean="另一个bean"></ref>
+	 			</property>
+	  -->
+	 <bean id="personId" class="cn.wyc.setter8.Person" >
+	 	<property name="pname" value="塔姆"></property>
+	 	<property name="age">
+	 		<value>80</value>
+	 	</property>
+	 	
+	 	<property name="homeAddr" ref="homeAddressId"></property>
+	 	<property name="comAddr">
+	 		<ref bean="comAddressId"></ref>
+	 	</property>
+	 </bean>
+	 <bean id="homeAddressId" class="cn.wyc.setter8.Address">
+	 	<property name="addr" value="西安"></property>
+	 	<property name="del" value="1238888888"></property>
+	 </bean>
+	 <bean id="comAddressId" class="cn.wyc.setter8.Address">
+	 	<property name="addr" value="成都"></property>
+	 	<property name="del" value="1666688888"></property>
+	 </bean>
+</beans>

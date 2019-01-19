@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd 
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop 
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 1创建目标类 -->
+	<bean id="UserServiceId" class="aop.wyc.Auto_SpringAop17.UserServiceImpl"></bean>
+	<!-- 2 创建切面类 -->
+	<bean id="MyAspectId" class="aop.wyc.Auto_SpringAop17.MyAspect"></bean>
+	<!-- 3 aop编程 
+			3.1 导入命名空间
+			3.2使用<aop:config>进行配置
+				aop:pointcut:切入点，从目标对象上获得具体方法
+				aop:advisor:特殊的切面，只有一个通知和一个切入点
+					advice-ref：通知引用
+					pointcut-ref：切入点引用
+			3.3切入点表达式
+				execution(* aop.wyc.Auto_SpringAop17.*.* (..))
+				选择方法   （返回值任意 包.类名任意.方法名任意  参数任意）
+			<aop:config proxy-target-class="true">是使用cglib，否则生成proxy对象			
+	-->
+	<aop:config>
+		<aop:pointcut expression="execution(* aop.wyc.Auto_SpringAop17.*.* (..))" id="myPointCut"/>
+		<aop:advisor advice-ref="MyAspectId" pointcut-ref="myPointCut"/>
+	</aop:config>	
+</beans>
+  
